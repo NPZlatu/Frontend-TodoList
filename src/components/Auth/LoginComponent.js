@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const LoginComponent = () => {
+import config from "../../config";
+
+const LoginComponent = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission (authentication)
+
+    axios
+      .post(`${config.API_BASE_URL}/login/`, {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem("access_token", response.data.access);
+          localStorage.setItem("refresh_token", response.data.refresh);
+          setIsAuthenticated(true);
+          navigate("/dashboard");
+          toast.success("Login successful", {
+            autoClose: config.AUTO_CLOSE_TIME,
+          });
+        } else {
+          toast.error("Login Failed.", {
+            autoClose: config.AUTO_CLOSE_TIME,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error, "login error");
+        toast.error("Login Failed.", {
+          autoClose: config.AUTO_CLOSE_TIME,
+        });
+      });
   };
 
   return (
@@ -29,6 +61,8 @@ const LoginComponent = () => {
               <input
                 type="username"
                 id="username"
+                onChange={(event) => setUsername(event.target.value)}
+                value={username}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your username"
               />
@@ -43,6 +77,8 @@ const LoginComponent = () => {
               <input
                 type="password"
                 id="password"
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your password"
               />
@@ -50,6 +86,7 @@ const LoginComponent = () => {
 
             <button
               type="submit"
+              onClick={handleFormSubmit}
               className="w-full bg-calm-blue text-white py-3 rounded-lg hover:bg-calm-blue-dark transition duration-300"
             >
               Login
