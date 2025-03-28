@@ -1,11 +1,49 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+import config from "../../config";
 
 const RegisterComponent = () => {
+  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
   const navigate = useNavigate();
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission (register the user)
+
+    axios
+      .post(`${config.API_BASE_URL}/register/`, {
+        username: username,
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success("Account created successfully. Please login.", {
+            autoClose: config.AUTO_CLOSE_TIME,
+          });
+          navigate("/login");
+        } else {
+          toast.error("An error occurred. Please try again.", {
+            autoClose: config.AUTO_CLOSE_TIME,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        toast.error(
+          error.response.data.username
+            ? error.response.data.username[0]
+            : "An error occurred. Please try again.",
+          {
+            autoClose: config.AUTO_CLOSE_TIME,
+          }
+        );
+      });
   };
 
   return (
@@ -27,6 +65,8 @@ const RegisterComponent = () => {
               </label>
               <input
                 type="text"
+                onChange={(event) => setUsername(event.target.value)}
+                value={username}
                 id="username"
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your username"
@@ -41,6 +81,8 @@ const RegisterComponent = () => {
               </label>
               <input
                 type="email"
+                onChange={(event) => setEmail(event.target.value)}
+                value={email}
                 id="email"
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your email"
@@ -55,6 +97,8 @@ const RegisterComponent = () => {
               </label>
               <input
                 type="password"
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
                 id="password"
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your password"
