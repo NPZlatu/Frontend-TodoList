@@ -13,7 +13,6 @@ import TodoListComponent from "../Todo/ListComponent";
 import { ToastContainer } from "react-toastify";
 
 const ProtectedRoute = ({ isAuthenticated, children }) => {
-  console.log(isAuthenticated, "isAuthenticated");
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
