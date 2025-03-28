@@ -26,6 +26,8 @@ const TodoComponent = () => {
   };
 
   const addTask = () => {
+    // Check if the new task is empty
+    // If it is, show an error message and return
     if (!newTask.trim()) {
       toast.error("Task cannot be empty");
       return;
@@ -104,6 +106,8 @@ const TodoComponent = () => {
 
   // Function to update task details
   const updateTaskRequest = async (id, newDetail) => {
+    // Check if the new task is empty
+    // If it is, show an error message and return
     if (newDetail.completed == null && !newDetail.title.trim()) {
       toast.error("Task cannot be empty");
       return;
