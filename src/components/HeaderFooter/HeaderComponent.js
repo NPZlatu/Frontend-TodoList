@@ -12,8 +12,8 @@ function HeaderComponent() {
         <div className="flex space-x-6">
           <Link to="/login" className="text-white hover:text-calm-light transition duration-300">Login</Link>
           <Link to="/register" className="text-white hover:text-calm-light transition duration-300">Register</Link>
-          <Link to="/dashboard" className="text-white hover:text-calm-light transition duration-300">Dashboard</Link>
-          <Link to="/logout" className="text-white hover:text-calm-light transition duration-300">Logout</Link>
+          {/* <Link to="/dashboard" className="text-white hover:text-calm-light transition duration-300">Dashboard</Link> */}
+          {/* <Link to="/logout" className="text-white hover:text-calm-light transition duration-300">Logout</Link> */}
         </div>
       </div>
     </nav>
