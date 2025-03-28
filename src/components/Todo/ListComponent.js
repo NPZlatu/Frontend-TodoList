@@ -82,6 +82,11 @@ const ListComponent = () => {
   };
 
   const updateTaskRequest = async (id, newDetail) => {
+    if (newDetail.completed == null && !newDetail.title.trim()) {
+      toast.error("Task cannot be empty");
+      return;
+    }
+
     const access_token = localStorage.getItem("access_token");
     const refresh_token = localStorage.getItem("refresh_token");
 
