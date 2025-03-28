@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import config from "../../config";
 
-const ListComponent = () => {
+const TodoComponent = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
-  const fetchTasks = async () => {
+  const fetchTasksRequest = async () => {
     const access_token = localStorage.getItem("access_token");
     const refresh_token = localStorage.getItem("refresh_token");
 
@@ -41,7 +41,7 @@ const ListComponent = () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     axios.defaults.headers.common["Content-Type"] = "application/json";
 
-    const addNewTask = async () => {
+    const addNewTaskRequest = async () => {
       try {
         const response = await axios.post(`${config.API_BASE_URL}/todos/`, {
           title: newTask,
@@ -49,7 +49,7 @@ const ListComponent = () => {
         });
         setTasks([...tasks, response.data]);
         setNewTask("");
-        fetchTasks();
+        fetchTasksRequest();
         toast.success("Task added successfully");
       } catch (error) {
         console.error("Error adding task:", error);
@@ -57,7 +57,7 @@ const ListComponent = () => {
       }
     };
 
-    addNewTask();
+    addNewTaskRequest();
   };
 
   const updateTask = (id, newText) => {
@@ -68,17 +68,37 @@ const ListComponent = () => {
   };
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-    toast.success("Task deleted");
+    const access_token = localStorage.getItem("access_token");
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    if (!access_token || !refresh_token) {
+      toast.error("You are not authenticated. Please login again.");
+      return;
+    }
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    axios.defaults.headers.common["Content-Type"] = "application/json";
+
+    const deleteTaskRequest = async () => {
+      try {
+        await axios.delete(`${config.API_BASE_URL}/todos/${id}/`);
+        setTasks(tasks.filter((task) => task.id !== id));
+        toast.success("Task deleted");
+      } catch (error) {
+        console.error("Error deleting task:", error);
+        toast.error("Error deleting task. Please try again.");
+      }
+    };
+
+    deleteTaskRequest();
   };
 
-  const toggleStatus = (id) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === id
-        ? { ...task, status: task.status === "Done" ? "Pending" : "Done" }
-        : task
-    );
-    setTasks(updatedTasks);
+  const toggleStatus = (id, completed) => {
+    const task = tasks.find((task) => task.id === id);
+    if (!task) return;
+    updateTaskRequest(id, {
+      title: task.title,
+      completed,
+    });
   };
 
   const updateTaskRequest = async (id, newDetail) => {
@@ -111,7 +131,7 @@ const ListComponent = () => {
   };
 
   useEffect(() => {
-    fetchTasks();
+    fetchTasksRequest();
   }, []);
 
   return (
@@ -159,12 +179,14 @@ const ListComponent = () => {
                 </td>
                 <td className="p-4">
                   <select
-                    value={task.status}
-                    onChange={() => toggleStatus(task.id)}
+                    value={task.completed ? "1" : "0"}
+                    onChange={() =>
+                      toggleStatus(task.id, task.completed ? "0" : "1")
+                    }
                     className="p-2 border border-gray-300 rounded-lg"
                   >
-                    <option value="Pending">Pending</option>
-                    <option value="Done">Done</option>
+                    <option value="0">Pending</option>
+                    <option value="1">Done</option>
                   </select>
                 </td>
                 <td className="p-4">
@@ -184,4 +206,4 @@ const ListComponent = () => {
   );
 };
 
-export default ListComponent;
+export default TodoComponent;

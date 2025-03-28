@@ -9,7 +9,7 @@ import HeaderComponent from "../HeaderFooter/HeaderComponent";
 import FooterComponent from "../HeaderFooter/FooterComponent";
 import LoginComponent from "../Auth/LoginComponent";
 import RegisterComponent from "../Auth/RegisterComponent";
-import TodoListComponent from "../Todo/ListComponent";
+import TodoComponent from "../Todo/TodoComponent";
 import { ToastContainer } from "react-toastify";
 
 const ProtectedRoute = ({ isAuthenticated, children }) => {
@@ -60,7 +60,7 @@ function App() {
               path="/dashboard"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <TodoListComponent />
+                  <TodoComponent />
                 </ProtectedRoute>
               }
             />
