@@ -101,6 +101,7 @@ const TodoComponent = () => {
     });
   };
 
+  // Function to update task details
   const updateTaskRequest = async (id, newDetail) => {
     if (newDetail.completed == null && !newDetail.title.trim()) {
       toast.error("Task cannot be empty");
