@@ -7,7 +7,7 @@ const ListComponent = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
-  useEffect(() => {
+  const fetchTasks = async () => {
     const access_token = localStorage.getItem("access_token");
     const refresh_token = localStorage.getItem("refresh_token");
 
@@ -17,15 +17,15 @@ const ListComponent = () => {
     }
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     axios.defaults.headers.common["Content-Type"] = "application/json";
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get(`${config.API_BASE_URL}/todos/`);
-        setTasks(response.data);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    };
+    try {
+      const response = await axios.get(`${config.API_BASE_URL}/todos/`);
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchTasks();
   }, []);
 
@@ -34,9 +34,34 @@ const ListComponent = () => {
       toast.error("Task cannot be empty");
       return;
     }
-    setTasks([...tasks, { id: Date.now(), text: newTask, status: "Pending" }]);
-    setNewTask("");
-    toast.success("Task added successfully");
+
+    const access_token = localStorage.getItem("access_token");
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    if (!access_token || !refresh_token) {
+      toast.error("You are not authenticated. Please login again.");
+      return;
+    }
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    axios.defaults.headers.common["Content-Type"] = "application/json";
+
+    const addNewTask = async () => {
+      try {
+        const response = await axios.post(`${config.API_BASE_URL}/todos/`, {
+          title: newTask,
+          completed: 0,
+        });
+        setTasks([...tasks, response.data]);
+        setNewTask("");
+        fetchTasks();
+        toast.success("Task added successfully");
+      } catch (error) {
+        console.error("Error adding task:", error);
+        toast.error("Error adding task. Please try again.");
+      }
+    };
+
+    addNewTask();
   };
 
   const updateTask = (id, newText) => {
