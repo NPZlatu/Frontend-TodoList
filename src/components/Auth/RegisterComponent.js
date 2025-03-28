@@ -70,6 +70,7 @@ const RegisterComponent = () => {
                 id="username"
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your username"
+                required
               />
             </div>
             <div className="mb-5">
@@ -86,6 +87,7 @@ const RegisterComponent = () => {
                 id="email"
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your email"
+                required
               />
             </div>
             <div className="mb-6">
@@ -102,6 +104,7 @@ const RegisterComponent = () => {
                 id="password"
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your password"
+                required
               />
             </div>
 
