@@ -62,6 +62,7 @@ const HeaderComponent = ({ isAuthenticated, setIsAuthenticated }) => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="text-3xl font-extrabold">ToDo App</div>
 
+        {/* Navigation bars */}
         <div className="flex space-x-6">
           {!isAuthenticated && (
             <Link
