@@ -35,6 +35,7 @@ const LoginComponent = ({ setIsAuthenticated }) => {
       })
       .catch((error) => {
         console.log(error, "login error");
+        /** Validations */
         toast.error("Invalid Credentials.", {
           autoClose: config.AUTO_CLOSE_TIME,
         });
