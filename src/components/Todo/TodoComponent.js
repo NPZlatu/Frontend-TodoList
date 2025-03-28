@@ -191,6 +191,7 @@ const TodoComponent = () => {
                     }
                     className="p-2 border border-gray-300 rounded-lg"
                   >
+                    {/* Status are Pending and Done */}
                     <option value="0">Pending</option>
                     <option value="1">Done</option>
                   </select>
