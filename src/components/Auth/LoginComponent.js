@@ -35,7 +35,7 @@ const LoginComponent = ({ setIsAuthenticated }) => {
       })
       .catch((error) => {
         console.log(error, "login error");
-        toast.error("Login Failed.", {
+        toast.error("Invalid Credentials.", {
           autoClose: config.AUTO_CLOSE_TIME,
         });
       });
@@ -65,6 +65,7 @@ const LoginComponent = ({ setIsAuthenticated }) => {
                 value={username}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your username"
+                required
               />
             </div>
             <div className="mb-6">
@@ -81,12 +82,12 @@ const LoginComponent = ({ setIsAuthenticated }) => {
                 value={password}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-calm-blue transition"
                 placeholder="Enter your password"
+                required
               />
             </div>
 
             <button
               type="submit"
-              onClick={handleFormSubmit}
               className="w-full bg-calm-blue text-white py-3 rounded-lg hover:bg-calm-blue-dark transition duration-300"
             >
               Login

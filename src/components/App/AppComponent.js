@@ -22,7 +22,6 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("here we are");
     if (localStorage.getItem("access_token")) {
       setIsAuthenticated(true);
     } else {
@@ -38,11 +37,19 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <HeaderComponent isAuthenticated={isAuthenticated} />
+        <HeaderComponent
+          isAuthenticated={isAuthenticated}
+          setIsAuthenticated={setIsAuthenticated}
+        />
         <ToastContainer />
         <div className="flex-grow">
           <Routes>
-            <Route path="/" element={<LoginComponent />} />
+            <Route
+              path="/"
+              element={
+                <LoginComponent setIsAuthenticated={setIsAuthenticated} />
+              }
+            />
             <Route
               path="/login"
               element={
