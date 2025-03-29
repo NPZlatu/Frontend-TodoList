@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import config from "../../config";
+import { confirmAlert } from "react-confirm-alert";
 
 const TodoComponent = () => {
   const [tasks, setTasks] = useState([]);
@@ -71,6 +72,8 @@ const TodoComponent = () => {
 
   /** Delete the task with id **/
   const deleteTask = (id) => {
+    // Show a confirmation dialog before deleting the task
+
     const access_token = localStorage.getItem("access_token");
     const refresh_token = localStorage.getItem("refresh_token");
 
@@ -92,7 +95,19 @@ const TodoComponent = () => {
       }
     };
 
-    deleteTaskRequest();
+    confirmAlert({
+      title: "Confirm Delete",
+      message: "Are you sure you want to delete this task?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteTaskRequest(id),
+        },
+        {
+          label: "No",
+        },
+      ],
+    });
   };
 
   const toggleStatus = (id, completed) => {
