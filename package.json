@@ -18,9 +18,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:prod": "cross-env REACT_ENV=prod react-scripts build",
+    "build:local": "cross-env REACT_ENV=local react-scripts build",
+    "e2e:local": "cross-env REACT_ENV=local cypress run --browser chrome --spec './cypress/e2e/*.js'",
+    "e2e:prod": "cross-env REACT_ENV=prod cypress run --browser chrome --spec './cypress/e2e/*.js'"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +45,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "cross-env": "^7.0.3",
+    "cypress": "^14.2.1",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.0.10"
   },
