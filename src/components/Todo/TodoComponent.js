@@ -53,10 +53,14 @@ const TodoComponent = () => {
         setTasks([...tasks, response.data]);
         setNewTask("");
         fetchTasksRequest();
-        toast.success("Task added successfully");
+        toast.success("Task added successfully", {
+          autoClose: config.AUTO_CLOSE_TIME,
+        });
       } catch (error) {
         console.error("Error adding task:", error);
-        toast.error("Error adding task. Please try again.");
+        toast.error("Error adding task. Please try again.", {
+          autoClose: config.AUTO_CLOSE_TIME,
+        });
       }
     };
 
@@ -88,10 +92,14 @@ const TodoComponent = () => {
       try {
         await axios.delete(`${config.API_BASE_URL}/todos/${id}/`);
         setTasks(tasks.filter((task) => task.id !== id));
-        toast.success("Task deleted");
+        toast.success("Task deleted", {
+          autoClose: config.AUTO_CLOSE_TIME,
+        });
       } catch (error) {
         console.error("Error deleting task:", error);
-        toast.error("Error deleting task. Please try again.");
+        toast.error("Error deleting task. Please try again.", {
+          autoClose: config.AUTO_CLOSE_TIME,
+        });
       }
     };
 
@@ -144,10 +152,14 @@ const TodoComponent = () => {
         newDetail
       );
       setTasks(tasks.map((task) => (task.id === id ? response.data : task)));
-      toast.success("Task updated successfully");
+      toast.success("Task updated successfully", {
+        autoClose: config.AUTO_CLOSE_TIME,
+      });
     } catch (error) {
       console.error("Error updating task:", error);
-      toast.error("Error updating task. Please try again.");
+      toast.error("Error updating task. Please try again.", {
+        autoClose: config.AUTO_CLOSE_TIME,
+      });
     }
   };
 
