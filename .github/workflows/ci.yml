@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  e2e-tests:
+  continuous-integration-tests:
     runs-on: ubuntu-latest
 
     steps:
