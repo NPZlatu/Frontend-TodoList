@@ -20,10 +20,12 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:prod": "npx cross-env REACT_ENV=prod react-scripts build",
-    "build:local": "npx cross-env REACT_ENV=local react-scripts build",
-    "e2e:local": "npx cross-env REACT_ENV=local cypress run --browser chrome --spec './cypress/e2e/*.js'",
-    "e2e:prod": "npx cross-env REACT_ENV=prod cypress run --browser chrome --spec './cypress/e2e/*.js'"
+    "build:prod": "cross-env REACT_ENV=prod react-scripts build",
+    "build:local": "cross-env REACT_ENV=local react-scripts build",
+    "build:ci": "REACT_ENV=ci react-scripts build",
+    "e2e:local": "cross-env REACT_ENV=local cypress run --browser chrome --spec './cypress/e2e/*.js'",
+    "e2e:prod": "cross-env REACT_ENV=prod cypress run --browser chrome --spec './cypress/e2e/*.js'",
+    "e2e:ci": "REACT_ENV=ci cypress run --browser chrome --spec './cypress/e2e/*.js'"
   },
   "eslintConfig": {
     "extends": [
