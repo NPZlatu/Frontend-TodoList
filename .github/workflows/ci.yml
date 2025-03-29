@@ -1,0 +1,42 @@
+name: CI for Todo Frontend
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run unit tests (using Jest or React Scripts)
+      - name: Run Unit Tests
+        run: npm test -- --coverage # Run unit tests and generate coverage report
+
+      # Start React app in the background (needed for Cypress tests)
+      - name: Start React app in the background
+        run: |
+          npm run start &  # Start the React app in the background
+          sleep 10  # Wait for the app to fully start (adjust timing if needed)
+
+      # Run Cypress E2E tests
+      - name: Run Cypress E2E Tests
+        run: cross-env REACT_ENV=local npm run e2e:local # Run Cypress tests for local environment
