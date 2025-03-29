@@ -39,4 +39,4 @@ jobs:
 
       # Run Cypress E2E tests
       - name: Run Cypress E2E Tests
-        run: cross-env REACT_ENV=local npm run e2e:local # Run Cypress tests for local environment
+        run: npm run e2e:local # Run Cypress tests for local environment
