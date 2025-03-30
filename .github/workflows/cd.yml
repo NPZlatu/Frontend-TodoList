@@ -31,6 +31,3 @@ jobs:
         run: |
           npm install gh-pages --save-dev
           npm run deploy
-        env:
-          CI: false
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
