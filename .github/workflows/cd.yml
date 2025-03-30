@@ -32,4 +32,4 @@ jobs:
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }} # Reference the GH_TOKEN secret
+          GH_TOKEN: ${{ secrets.GH_TOKEN }} # Reference the GH_TOKEN secrets in GitHub settings
