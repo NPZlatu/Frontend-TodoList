@@ -48,7 +48,7 @@ const LoginComponent = ({ setIsAuthenticated }) => {
       <div className="flex-grow flex justify-center items-center">
         <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
           <h3 className="text-center text-calm-blue text-3xl font-semibold mb-6">
-            Login to Your Account - UPDATED
+            Login to Your Account
           </h3>
 
           <form onSubmit={handleFormSubmit}>
