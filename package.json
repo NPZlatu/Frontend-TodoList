@@ -27,7 +27,6 @@
     "predeploy": "npm run build:prod",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://github.com/NPZlatu/Frontend-TodoList",
   "eslintConfig": {
     "extends": [
       "react-app",
