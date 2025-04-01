@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a React-based frontend application for a Todo app. It includes dependencies for routing, UI notifications, API requests, and testing.
+This is a React-based frontend application for a Todo app. It includes dependencies for routing, UI notifications, API requests, and testing. This project was created as part of Assignment 1 for my CI/CD course. I am currently studying at the Auckland Institute of Studies.
 
 ## Table of Contents
 
