@@ -22,7 +22,7 @@ This is a React-based frontend application for a Todo app. It includes dependenc
 
 A live demo of the project.
 
-[Click here to view the demo](https://todo.nirajpaudel.me)
+[Click here to view the demo](https://frontend-todo-list-nine.vercel.app/)
 
 ## Installation
 
